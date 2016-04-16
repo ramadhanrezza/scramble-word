@@ -2,6 +2,24 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MY_Model extends CI_Model {
+    public function _get_result_one($select=null, $where=null, $join=null, $limit=null, $start=null, $sort=null) {
+        if ($select !== null) {
+            if (is_array($select)) {
+                $this->generate_columns($select);
+            } else {
+                $this->db->select($select);
+            }
+        }
+        if ($join !== null) { $this->generate_join($join); }
+        if ($where !== null) { $this->generate_where($where); }
+        if ($sort !== null) { $this->generate_sort($sort); }
+        if ($limit !== null AND $start !== null) { $this->db->limit($limit, $start); }
+        $query = $this->db->get($this->_table_name);
+        if ($query->num_rows() > 0) {
+            return $query->first_row();
+        }
+        return false;
+    }
     public function _get_result($select=null, $where=null, $join=null, $limit=null, $start=null, $sort=null) {
         if ($select !== null) {
             if (is_array($select)) {
