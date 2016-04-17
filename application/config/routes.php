@@ -60,3 +60,5 @@ $route['search']	= 'Home/search';
 $route['admin']			= 'Admin/index';
 $route['admin/login'] 	= 'Admin/login';
 $route['admin/logout'] 	= 'Admin/logout';
+$route['admin/edit']	= 'Admin/index';
+$route['admin/delete']	= 'Admin/index';

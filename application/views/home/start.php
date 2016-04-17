@@ -30,33 +30,37 @@
     
 <script type="text/javascript">
 function submit_jawaban() {
-    $.ajax({
-        type        : "POST",
-        url         : BASE_URL + 'search',
-        dataType    : 'JSON',
-        data        : {
-            type        : 'check_answer',
-            category    : '<?php echo $this->input->get('category') ?>',
-            question    : $('#word_id').val(),
-            answer      : $('#jawaban').val()
-        },
-        success     : function(result) {
-            if (result.success) {
-                alert('Jawaban anda benar');
-                $('#nilai').html(parseInt($('#nilai').html())+1); 
-                $('#jawaban').val('');
-                $('#jawaban').focus();
-                search();
-            } else {
-                $('#span-error').addClass('glyphicon glyphicon-remove form-control-feedback');
-                $('#div-jawaban').addClass('has-error has-feedback');
-                alert('Jawaban anda salah');
-                $('#jawaban').focus();
-                $('#jawaban').val('');
-                $('#nilai').html($('#nilai').html()-1); 
+    if ($('#jawaban').val() == '') {
+        alert('Jawaban belum diisi');
+    } else {
+        $.ajax({
+            type        : "POST",
+            url         : BASE_URL + 'search',
+            dataType    : 'JSON',
+            data        : {
+                type        : 'check_answer',
+                category    : '<?php echo $this->input->get('category') ?>',
+                question    : $('#word_id').val(),
+                answer      : $('#jawaban').val()
+            },
+            success     : function(result) {
+                if (result.success) {
+                    alert('Jawaban anda benar');
+                    $('#nilai').html(parseInt($('#nilai').html())+1); 
+                    $('#jawaban').val('');
+                    $('#jawaban').focus();
+                    search();
+                } else {
+                    $('#span-error').addClass('glyphicon glyphicon-remove form-control-feedback');
+                    $('#div-jawaban').addClass('has-error has-feedback');
+                    alert('Jawaban anda salah');
+                    $('#jawaban').focus();
+                    $('#jawaban').val('');
+                    $('#nilai').html($('#nilai').html()-1); 
+                }
             }
-        }
-    });
+        });    
+    }
     return false;
 }
 
