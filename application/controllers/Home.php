@@ -53,7 +53,7 @@ class Home extends CI_Controller {
             $filters = null;
             $postdata = $this->input->post();
             if ($postdata['category'] != 0) {
-                $filters['category'] = $postdata['category'];
+                $filters['category_id'] = $postdata['category'];
             }
             if ($postdata['type'] == 'get_data') {
                 $filters['id'] = rand(1, $this->get_model_word()->_get_count($filters));
