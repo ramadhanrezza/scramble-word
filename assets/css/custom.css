@@ -54,3 +54,8 @@ body {
 #span-error {
     right: 15px;
 }
+
+.error-msg {
+  margin-bottom: 10px;
+  display: block;
+}
