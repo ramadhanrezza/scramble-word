@@ -1,8 +1,32 @@
 <?php include_once APPPATH . 'views/include/header.php'; ?>
 <body>
     <div class="container">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h5>Urutkan huruf berikut menjadi kata yang benar</h5>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" onsubmit="return submit_jawaban()">
+                    <input type="hidden" name="word_id" id="word_id">
+                    <div class="form-group"><label class="col-sm-2 control-label text-left text-primary">Score <span id="nilai">1</span></label></div>
+                    <div class="form-group" id="div-jawaban">
+                        <label class="col-sm-2 control-label text-left text-success" id="pertanyaan"></label>
+                        <div class="col-sm-4">
+                            <span id="span-error" aria-hidden="true"></span>
+                            <input autofocus autocomplete="off" type="text" name="jawaban" id="jawaban" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-4">
+                            <button class="btn btn-success">Submit &raquo;</button>
+                            <button class="btn btn-warning" onclick="location.href='<?php echo base_url() ?>'" >Reset</button>
+                        </div>
+                    </div>
+                </form>    
+            </div>
+        </div>
         <!-- Static navbar -->
-        <nav class="navbar navbar-default">
+        <?php /* <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="<?php echo base_url() ?>">Scramble Word</a>
@@ -11,7 +35,7 @@
         </nav>
 
         <!-- Main component for a primary marketing message or call to action -->
-        <div class="jumbotron">
+        <div class="container">
             <h4>Urutkan huruf berikut menjadi kata yang benar</h4>
             <form class="form-horizontal" onsubmit="return submit_jawaban()">
                 <input type="hidden" name="word_id" id="word_id">
@@ -25,10 +49,11 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-4">
                         <button class="btn btn-default">Submit &raquo;</button>
+                        <button class="btn btn-default" onclick="location.href='<?php echo base_url() ?>'" >Reset</button>
                     </div>
                 </div>
             </form>
-        </div>
+        </div> */ ?>
     </div>
 </body>
     
@@ -49,9 +74,14 @@ function submit_jawaban() {
                 alert('Jawaban anda benar');
                 $('#nilai').html(parseInt($('#nilai').html())+1); 
                 $('#jawaban').val('');
+                $('#jawaban').focus();
                 search();
             } else {
-                alert('Jawban anda salah');
+                $('#span-error').addClass('glyphicon glyphicon-remove form-control-feedback');
+                $('#div-jawaban').addClass('has-error has-feedback');
+                alert('Jawaban anda salah');
+                $('#jawaban').focus();
+                $('#jawaban').val('');
                 $('#nilai').html($('#nilai').html()-1); 
             }
         }
